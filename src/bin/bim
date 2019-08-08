@@ -5,6 +5,16 @@ define("NO_KEEP_STATISTIC", true);
 define("NO_AGENT_STATISTIC", true);
 define("NOT_CHECK_PERMISSIONS", true);
 $_SERVER["DOCUMENT_ROOT"] = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+
+if (preg_match('/(.+)\/local\/modules\/([^\/]+)$/i', $_SERVER["DOCUMENT_ROOT"], $matches)) {
+    define('MODULE_MIGRATIONS', true);
+    define('MODULE_NAME', $matches[2]);
+    define('MODULE_PATH', $_SERVER['DOCUMENT_ROOT']);
+    $_SERVER['DOCUMENT_ROOT'] = $matches[1];
+} else {
+    define('MODULE_MIGRATIONS', false);
+}
+
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 \Bim\Migration::init();

@@ -21,7 +21,11 @@ class MigrationsTable
     public static function getTableName()
     {
         $conf = new Config();
-        return $conf->get("migration_table");
+        $tableName = $conf->get("migration_table");
+        if (MODULE_MIGRATIONS) {
+            $tableName .= '_'.str_replace('.', '_', MODULE_NAME);
+        }
+        return $tableName;
     }
 
     /**
@@ -106,12 +110,19 @@ class MigrationsTable
         global $DB;
         $errors = false;
         if (!$DB->Query("SELECT 'id' FROM " . self::getTableName(), true)) {
-            $errors = $DB->RunSQLBatch(__DIR__ . '/../install/install.sql');
+            $DB->Query('CREATE TABLE IF NOT EXISTS `'.self::getTableName().'` (
+  `id` VARCHAR(255)
+       COLLATE utf8_unicode_ci NOT NULL
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci', false);
+            $errors = $DB->GetErrorMessage();
         } else {
             return false;
         }
-        if ($errors !== false) {
-            throw new \Exception(implode("", $errors));
+        if (!empty($errors)) {
+            throw new \Exception($errors);
             return false;
         }
         return true;
