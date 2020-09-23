@@ -140,9 +140,9 @@ class DownCommand extends BaseCommand
             }
 
             $time_start = microtime(true);
-            $this->info(" <- Start revert migration:");
             $this->writeln('');
             foreach ($return_array_apply as $id => $mig) {
+                $this->info(" <- Start revert migration: {$id}");
                 include_once "" . $mig[1] . "";
                 if ((method_exists($mig[0], "down"))) {
                     try {

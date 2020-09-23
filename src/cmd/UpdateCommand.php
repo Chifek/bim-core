@@ -45,7 +45,7 @@ class UpdateCommand extends BaseCommand
     public function execute(array $args, array $options = array())
     {
         global $DB;
-        
+
         # get logging options
         $logging = (isset($options['logging'])) ? true : false;
         $logging_output = array();
@@ -150,9 +150,9 @@ class UpdateCommand extends BaseCommand
             }
 
             $time_start = microtime(true);
-            $this->info(" -> Start applying migration:");
             $this->writeln('');
             foreach ($return_array_new as $id => $mig) {
+                $this->info(" -> Start applying migration: {$id}");
                 include_once "" . $mig[1] . "";
                 # check bim migration.
                 if ((method_exists($mig[0], "up"))) {
