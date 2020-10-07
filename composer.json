@@ -1,6 +1,6 @@
 {
-  "name": "koreychenko/bim-core",
-  "description": "Bitrix db migration core libs",
+  "name": "chifek/bim-core",
+  "description": "Bitrix db migration core libs. With logs",
   "keywords": [
     "bitrix",
     "db",
@@ -36,9 +36,9 @@
     "alchemy/zippy": ">=0.3.5"
   },
   "support": {
-    "email": "koreychenko@gmail.com",
-    "docs": "https://github.com/koreychenko/bim-core",
-    "source": "https://github.com/koreychenko/bim-core"
+    "email": "chifek@gmail.com",
+    "docs": "https://github.com/Chifek/bim-core",
+    "source": "https://github.com/Chifek/bim-core"
   },
   "autoload": {
     "classmap": [
